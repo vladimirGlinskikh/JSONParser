@@ -1,18 +1,6 @@
 package kz.zhelezyaka.syntacticalAnalyzer;
 
-import java.util.List;
-
-import static kz.zhelezyaka.syntacticalAnalyzer.Lexeme.lexAnalyzer;
-
 public class ExpressionParser {
-    public static void main(String[] args) {
-        String expText = "(55 + 5 * (3 - 2)) * 2";
-//        String expText = "-(5 + 2) + -5 * 3";
-        List<Lexeme> lexemes = lexAnalyzer(expText);
-        LexemeBuffer lexemeBuffer = new LexemeBuffer(lexemes);
-        System.out.println(expr(lexemeBuffer));
-    }
-
     public static int expr(LexemeBuffer lexemes) {
         Lexeme lexeme = lexemes.next();
         if (lexeme.type == LexemeType.EOF) {

@@ -69,6 +69,9 @@ public final class JSON {
             do {
                 skipWhiteSpace();
                 final String key = parseString();
+                if (objectMap.containsKey(key)){
+                    throw error("Duplicate key " + key);
+                }
                 skipWhiteSpace();
                 expect(':');
                 final Object value = parseElement();
@@ -102,7 +105,11 @@ public final class JSON {
             while (between('0', '9')) {
                 number.append(take());
             }
-            return Integer.parseInt(number.toString());
+            try {
+                return Integer.parseInt(number.toString());
+            } catch (NumberFormatException e) {
+                throw error("Invalid number " + number);
+            }
         }
 
         private String parseString() {
